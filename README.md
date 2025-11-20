@@ -117,15 +117,15 @@ _Note: The scoring model is still evolving. Review and adapt the weights and cat
 
 Tailor the scoring model and query limits via the config files.
 
-# Adjust Risk Weights
+### Adjust Risk Weights
 
 Update the `RISK_WEIGHTS` dictionary in `risk_config.py` to emphasize or de-emphasize specific components.
 
-# Modify Risk Categories
+### Modify Risk Categories
 
 Edit `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES`, and `TARGET_OBJECT_CATEGORIES` in `risk_config.py` to reflect your threat model.
 
-# Change Result Limit
+### Change Result Limit
 
 Set `LIMIT_CHOKE_POINTS` in `config.py` to control how many prioritized choke points are included in the Excel output.
 
@@ -268,15 +268,15 @@ _Nota: El modelo de cálculo de riesgo sigue en evolución. Ajusta los pesos y l
 
 Personaliza pesos, categorías y límites según tus necesidades.
 
-# Ajustar Pesos de Riesgo
+### Ajustar Pesos de Riesgo
 
 Modifica `RISK_WEIGHTS` en `risk_config.py` para priorizar distintos componentes.
 
-# Modificar Categorías de Riesgo
+### Modificar Categorías de Riesgo
 
 Edita `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES` y `TARGET_OBJECT_CATEGORIES` en `risk_config.py` para alinearlos a tu modelo de amenazas.
 
-# Cambiar Límite de Resultados
+### Cambiar Límite de Resultados
 
 Ajusta `LIMIT_CHOKE_POINTS` en `config.py` para controlar cuántos Choke Points priorizados se incluyen.
 
