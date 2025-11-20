@@ -28,8 +28,8 @@ The following steps are required for ChokeHound to be able to produce meaningful
 1. **BloodHound CE installation**: Deploy BloodHound CE and confirm the Neo4j backend is initialized and reachable with valid credentials. [Instructions here](https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart).
 2. **Data collection with SharpHound or AzureHound**: Run the official collectors and import the output into BloodHound CE: [SharpHound](https://bloodhound.specterops.io/collect-data/ce-collection/sharphound) on-prem / [AzureHound](https://bloodhound.specterops.io/collect-data/ce-collection/azurehound) for Entra ID.
 3. **Tier 0 configuration inside BloodHound**: Tag every Tier‑0 object with `Tag_Tier_Zero` so ChokeHound can differentiate privileged targets.
-    3.1. In BloodHound CE -> Administration -> Configuration -> Early Access Features -> Enable Tier Management Engine​
-    3.2. Add your Tier 0 oject in section "Privilege Zone Management". Tier 0 members to consider: [Tier Zero: Members and Modification](https://bloodhound.specterops.io/get-started/security-boundaries/tier-zero-members)
+   - In BloodHound CE -> Administration -> Configuration -> Early Access Features -> Enable Tier Management Engine​
+   - Add your Tier 0 oject in section "Privilege Zone Management". Tier 0 members to consider: [Tier Zero: Members and Modification](https://bloodhound.specterops.io/get-started/security-boundaries/tier-zero-members)
 ​
 
 ## Installation
@@ -59,7 +59,7 @@ The following steps are required for ChokeHound to be able to produce meaningful
 
 ## Configuration
 
-Adjust `config.py` to match your Neo4j endpoint:
+Adjust `config.py` to match your Neo4j endpoint (only if different from default):
 
 ```python
 NEO4J_URI = "bolt://localhost:7687"
@@ -110,38 +110,22 @@ Risk = (SourceObjectWeight × SourceObjectCategory) +
 
 The resulting risk is normalized to a 1–100 scale, ensuring consistent comparison across findings.
 
-## Troubleshooting
+_Note: The scoring model is still evolving. Review and adapt the weights and category values in `risk_config.py` for each Active Directory environment before relying on the scores._
 
-Common runtime issues and mitigations.
-
-## Neo4j Connection Error
-
-**Problem**: `[ERROR] Error connecting to Neo4j: <details>`  
-**Solution**: Verify the Neo4j service is running, confirm credentials/URI in `config.py`, and ensure the bolt port is reachable.
-
-## No Results Found
-
-**Problem**: Sheets contain rows with `Info: No results found`.  
-**Solution**: Confirm BloodHound data was ingested, Tier‑0 tagging is correct, and the relevant graph relationships exist.
-
-## Module Import Error
-
-**Problem**: `ModuleNotFoundError: No module named 'py2neo'`  
-**Solution**: Activate the virtual environment and run `pip install -r requirements.txt`.
 
 ## Customization
 
 Tailor the scoring model and query limits via the config files.
 
-## Adjust Risk Weights
+# Adjust Risk Weights
 
 Update the `RISK_WEIGHTS` dictionary in `risk_config.py` to emphasize or de-emphasize specific components.
 
-## Modify Risk Categories
+# Modify Risk Categories
 
 Edit `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES`, and `TARGET_OBJECT_CATEGORIES` in `risk_config.py` to reflect your threat model.
 
-## Change Result Limit
+# Change Result Limit
 
 Set `LIMIT_CHOKE_POINTS` in `config.py` to control how many prioritized choke points are included in the Excel output.
 
@@ -195,8 +179,8 @@ Para que ChokeHound pueda producir resultados significativos, se requieren los s
 1. **Instalación de BloodHound CE**: Despliega BloodHound CE y confirma que Neo4j está inicializado y accesible con credenciales válidas. [Instrucciones aquí](https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart). 
 2. **Recolección de datos con SharpHound o AzureHound**: Ejecuta los colectores de datos oficiales y sube los resultados a BloodHound CE. [SharpHound](https://bloodhound.specterops.io/collect-data/ce-collection/sharphound) on-prem / [AzureHound](https://bloodhound.specterops.io/collect-data/ce-collection/azurehound) para Entra ID.
 3. **Configuración de Tier 0 en BloodHound**: Etiqueta todos los objetos Tier‑0 con `Tag_Tier_Zero`; ChokeHound depende de esta clasificación.
-    3.1. En BloodHound CE -> Administration -> Configuration -> Early Access Features -> Enable Tier Management Engine​
-    3.2. Añade tus objectos Tier 0 en la sección "Privilege Zone Management". Tier 0 members to consider: [Tier Zero: Members and Modification](https://bloodhound.specterops.io/get-started/security-boundaries/tier-zero-members)
+   - En BloodHound CE -> Administration -> Configuration -> Early Access Features -> Enable Tier Management Engine​
+   - Añade tus objectos Tier 0 en la sección "Privilege Zone Management". Tier 0 members to consider: [Tier Zero: Members and Modification](https://bloodhound.specterops.io/get-started/security-boundaries/tier-zero-members)
 
 
 ## Instalación
@@ -226,7 +210,7 @@ Para que ChokeHound pueda producir resultados significativos, se requieren los s
 
 ## Configuración
 
-Actualiza `config.py` con los valores de tu entorno:
+Actualiza `config.py` con los valores de tu entorno (solo si es distinto que por defecto):
 
 ```python
 NEO4J_URI = "bolt://localhost:7687"
@@ -277,38 +261,22 @@ Riesgo = (PesoObjetoOrigen × CategoríaObjetoOrigen) +
 
 El riesgo resultante se normaliza a un rango de 1–100 para facilitar la comparación.
 
-## Solución de Problemas
+_Nota: El modelo de cálculo de riesgo sigue en evolución. Ajusta los pesos y las categorías en `risk_config.py` según las características de cada entorno antes de confiar en las puntuaciones._
 
-Escenarios comunes durante la ejecución.
-
-## Error de Conexión a Neo4j
-
-**Problema**: `[ERROR] Error connecting to Neo4j: <detalles>`  
-**Solución**: Comprueba que Neo4j esté activo, las credenciales/URI en `config.py` sean correctas y que el puerto bolt sea accesible.
-
-## Sin Resultados
-
-**Problema**: Las hojas contienen filas con `Info: No results found`.  
-**Solución**: Verifica que los datos de BloodHound se hayan importado, que los objetos clave tengan `Tag_Tier_Zero` y que existan relaciones relevantes en el grafo.
-
-## Error de Importación de Módulos
-
-**Problema**: `ModuleNotFoundError: No module named 'py2neo'`  
-**Solución**: Activa el entorno virtual y ejecuta `pip install -r requirements.txt`.
 
 ## Personalización
 
 Personaliza pesos, categorías y límites según tus necesidades.
 
-## Ajustar Pesos de Riesgo
+# Ajustar Pesos de Riesgo
 
 Modifica `RISK_WEIGHTS` en `risk_config.py` para priorizar distintos componentes.
 
-## Modificar Categorías de Riesgo
+# Modificar Categorías de Riesgo
 
 Edita `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES` y `TARGET_OBJECT_CATEGORIES` en `risk_config.py` para alinearlos a tu modelo de amenazas.
 
-## Cambiar Límite de Resultados
+# Cambiar Límite de Resultados
 
 Ajusta `LIMIT_CHOKE_POINTS` en `config.py` para controlar cuántos Choke Points priorizados se incluyen.
 
