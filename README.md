@@ -1,5 +1,7 @@
 # ChokeHound - BloodHound CE Choke Points Analyzer
 
+[English](#chokehound---bloodhound-ce-choke-points-analyzer) | [Español](#chokehound---analizador-de-choke-points-con-bloodhound-ce)
+
 <p align="center">
   <img src="logo.png" alt="ChokeHound logo" width="240">
 </p>
@@ -129,6 +131,10 @@ Edit `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES`, and `TARGET_OBJ
 
 Set `LIMIT_CHOKE_POINTS` in `config.py` to control how many prioritized choke points are included in the Excel output.
 
+### Change Hop Limit
+
+Set `CHOKE_POINTS_HOP_LIMIT` in `config.py` to adjust how deep the script traverses upstream relationships when counting affected attack paths. Increase it for broader analysis or lower it to focus on immediate chokepoints.
+
 ## TODO
 
 - Add Azure / Entra ID support.
@@ -154,6 +160,8 @@ Set `LIMIT_CHOKE_POINTS` in `config.py` to control how many prioritized choke po
 
 
 # ChokeHound - Analizador de Choke Points con BloodHound CE
+
+[English](#chokehound---bloodhound-ce-choke-points-analyzer) | [Español](#chokehound---analizador-de-choke-points-con-bloodhound-ce)
 
 ChokeHound analiza datos de BloodHound CE para resaltar Choke Points: relaciones de privilegio donde objetos no Tier‑0 impactan directamente activos Tier‑0. El informe Excel y el log opcional permiten priorizar la mitigación.
 
@@ -279,6 +287,10 @@ Edita `SOURCE_OBJECT_CATEGORIES`, `RELATIONSHIP_TYPE_CATEGORIES` y `TARGET_OBJEC
 ### Cambiar Límite de Resultados
 
 Ajusta `LIMIT_CHOKE_POINTS` en `config.py` para controlar cuántos Choke Points priorizados se incluyen.
+
+### Cambiar Límite de Saltos
+
+Ajusta `CHOKE_POINTS_HOP_LIMIT` en `config.py` para definir cuántos saltos hacia atrás se exploran al calcular rutas de ataque afectadas. Súbelo para analizar caminos más largos o bájalo si solo te interesan los chokepoints inmediatos.
 
 ## TODO
 
